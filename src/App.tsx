@@ -1,7 +1,12 @@
 import React from 'react';
+import OrderSummary from './pages/summary/OrderSummary';
 
 function App() {
-  return <div></div>;
+  return (
+    <div>
+      <OrderSummary />
+    </div>
+  );
 }
 
 export default App;
