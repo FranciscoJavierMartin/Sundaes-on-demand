@@ -1,14 +1,15 @@
 import React from 'react';
-import Options from './pages/entry/Options';
-import OrderSummary from './pages/summary/OrderSummary';
+import { Container } from 'react-bootstrap';
+import { OrderDetailsProvider } from './contexts/OrderDetails';
+import OrderEntry from './pages/entry/OrderEntry';
 
 function App() {
   return (
-    <div>
-      <Options optionType='scoops' />
-      <Options optionType='toppings' />
-      <OrderSummary />
-    </div>
+    <Container>
+      <OrderDetailsProvider>
+        <OrderEntry />
+      </OrderDetailsProvider>
+    </Container>
   );
 }
 
