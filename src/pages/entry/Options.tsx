@@ -7,7 +7,8 @@ import { Scoop } from '../../interfaces/scoops';
 import AlertBanner from '../common/AlertBanner';
 import { OptionTypes } from '../../interfaces/optionTypes';
 import { pricesPerItem } from '../../constants';
-import { formatCurrency, useOrderDetails } from '../../contexts/OrderDetails';
+import { useOrderDetails } from '../../contexts/OrderDetails';
+import { formatCurrency } from '../../utils';
 
 interface OptionsProps {
   optionType: OptionTypes;
@@ -23,7 +24,7 @@ const Options: React.FC<OptionsProps> = ({ optionType }) => {
     axios
       .get<Scoop[]>(`http://localhost:3030/${optionType}`)
       .then((response) => setItems(response.data))
-      .catch((error) => {
+      .catch(() => {
         setError(true);
       });
   }, [optionType]);
@@ -37,7 +38,7 @@ const Options: React.FC<OptionsProps> = ({ optionType }) => {
       name={item.name}
       imagePath={item.imagePath}
       updateItemCount={(itemName: string, newItemCount: number) =>
-        updateItemCount(itemName, newItemCount, optionType)
+        updateItemCount(itemName as OptionTypes, newItemCount, optionType)
       }
     />
   ));

@@ -7,16 +7,12 @@ import React, {
 } from 'react';
 import { pricesPerItem } from '../constants';
 import { OptionTypes } from '../interfaces/optionTypes';
+import { ContextState, UpdateItemCountFunctionType } from '../interfaces/state';
+import { formatCurrency } from '../utils';
 
-export function formatCurrency(amount: number) {
-  return new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'USD',
-    minimumFractionDigits: 2,
-  }).format(amount);
-}
-// @ts-ignore
-const OrderDetails = createContext();
+const OrderDetails =
+  // @ts-ignore
+  createContext<[ContextState, UpdateItemCountFunctionType]>();
 
 export function useOrderDetails() {
   const context = useContext(OrderDetails);
@@ -73,7 +69,7 @@ export const OrderDetailsProvider: React.FC = (props) => {
     });
   }, [optionCounts]);
 
-  const value = useMemo(() => {
+  const value = useMemo<[ContextState, UpdateItemCountFunctionType]>(() => {
     function updateItemCount(
       itemName: OptionTypes,
       newItemCount: number,
