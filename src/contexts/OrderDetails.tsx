@@ -78,29 +78,18 @@ export const OrderDetailsProvider: React.FC = (props) => {
       itemName: OptionTypes,
       newItemCount: number,
       optionType: OptionTypes
-    ): void {
+    ) {
+      const { [optionType]: optionMap } = optionCounts;
+      const newOptionMap = new Map(optionMap);
+
+      newOptionMap.set(itemName, +newItemCount);
+
       const newOptionCounts = { ...optionCounts };
-      const optionCountsMap = optionCounts[optionType];
-      optionCountsMap.set(itemName, newItemCount);
+      newOptionCounts[optionType] = newOptionMap;
 
       setOptionCounts(newOptionCounts);
     }
 
-    // function updateItemCount(
-    //   itemName: OptionTypes,
-    //   newItemCount: number,
-    //   optionType: OptionTypes
-    // ) {
-    //   const { [optionType]: optionMap } = optionCounts;
-    //   const newOptionMap = new Map(optionMap);
-
-    //   newOptionMap.set(itemName, newItemCount);
-
-    //   const newOptionCounts = { ...optionCounts };
-    //   newOptionCounts[optionType] = newOptionMap;
-
-    //   setOptionCounts(newOptionCounts);
-    // }
     return [
       {
         ...optionCounts,

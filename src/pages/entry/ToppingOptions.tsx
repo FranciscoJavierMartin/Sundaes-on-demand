@@ -1,12 +1,17 @@
 import React from 'react';
-import { Col } from 'react-bootstrap';
+import { Col, Form } from 'react-bootstrap';
 
 interface ToppingOptionsProps {
   name: string;
   imagePath: string;
+  updateItemCount: (itemName: string, newItemCount: number) => void;
 }
 
-const ToppingOptions: React.FC<ToppingOptionsProps> = ({ name, imagePath }) => {
+const ToppingOptions: React.FC<ToppingOptionsProps> = ({
+  name,
+  imagePath,
+  updateItemCount,
+}) => {
   return (
     <Col xs={12} sm={6} md={4} lg={3} style={{ textAlign: 'center' }}>
       <img
@@ -14,6 +19,15 @@ const ToppingOptions: React.FC<ToppingOptionsProps> = ({ name, imagePath }) => {
         src={`http://localhost:3030/${imagePath}`}
         alt={`${name} topping`}
       />
+      <Form.Group controlId={`${name}-topping-checkbox`}>
+        <Form.Check
+          type='checkbox'
+          onChange={(e) => {
+            updateItemCount(name, e.target.checked ? 1 : 0);
+          }}
+          label={name}
+        />
+      </Form.Group>
     </Col>
   );
 };
