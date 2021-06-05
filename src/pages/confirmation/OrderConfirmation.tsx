@@ -4,6 +4,7 @@ import { useOrderDetails } from '../../contexts/OrderDetails';
 import { Button } from 'react-bootstrap';
 import { OrderPhases } from '../../constants';
 import { ORDER_API } from '../../constants/routes';
+import AlertBanner from '../common/AlertBanner';
 
 interface OrderConfirmationProps {
   setOrderPhase: React.Dispatch<React.SetStateAction<OrderPhases>>;
@@ -14,6 +15,7 @@ const OrderConfirmation: React.FC<OrderConfirmationProps> = ({
 }) => {
   const [, , resetOrder] = useOrderDetails();
   const [orderNumber, setOrderNumber] = useState<number | null>(null);
+  const [error, setError] = useState<boolean>(false);
 
   useEffect(() => {
     axios
@@ -21,7 +23,9 @@ const OrderConfirmation: React.FC<OrderConfirmationProps> = ({
       .then((response) => {
         setOrderNumber(response.data.orderNumber);
       })
-      .catch((error) => {});
+      .catch((error) => {
+        setError(true);
+      });
   }, []);
 
   const handleClick = () => {
@@ -29,7 +33,9 @@ const OrderConfirmation: React.FC<OrderConfirmationProps> = ({
     setOrderPhase(OrderPhases.inProgress);
   };
 
-  return orderNumber ? (
+  return error ? (
+    <AlertBanner />
+  ) : orderNumber ? (
     <div style={{ textAlign: 'center' }}>
       <h1>Thank you</h1>
       <p>Your order number is {orderNumber}</p>

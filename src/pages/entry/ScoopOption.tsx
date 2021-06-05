@@ -14,13 +14,17 @@ const ScoopOption: React.FC<ScoopOptionProps> = ({
 }) => {
   const [isValid, setIsValid] = useState<boolean>(true);
   const handleChange = (event: React.ChangeEvent<any>) => {
-    updateItemCount(name, event.target.value);
-    const currentValueFloat = parseFloat(event.target.value);
-    setIsValid(
+    const currentValue = event.target.value;
+    const currentValueFloat = parseFloat(currentValue);
+    const valueIsValid =
       0 <= currentValueFloat &&
-        currentValueFloat <= 10 &&
-        Math.floor(currentValueFloat) === currentValueFloat
-    );
+      currentValueFloat <= 10 &&
+      Math.floor(currentValueFloat) === currentValueFloat;
+    setIsValid(valueIsValid);
+
+    if (valueIsValid) {
+      updateItemCount(name, currentValue);
+    }
   };
   return (
     <Col xs={12} sm={6} md={4} lg={3} style={{ textAlign: 'center' }}>
