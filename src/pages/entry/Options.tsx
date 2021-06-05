@@ -22,7 +22,7 @@ const Options: React.FC<OptionsProps> = ({ optionType }) => {
 
   useEffect(() => {
     axios
-      .get<Scoop[]>(`http://localhost:3030/${optionType}`)
+      .get<Scoop[]>(`${process.env.REACT_APP_SERVER_URL}${optionType}`)
       .then((response) => setItems(response.data))
       .catch(() => {
         setError(true);

@@ -1,7 +1,8 @@
 import { rest } from 'msw';
+import { ORDER_API, SCOOPS_API, TOPPINGS_API } from '../constants/routes';
 
 export const handlers = [
-  rest.get('http://localhost:3030/scoops', (req, res, ctx) => {
+  rest.get(SCOOPS_API, (req, res, ctx) => {
     return res(
       ctx.json([
         {
@@ -15,7 +16,7 @@ export const handlers = [
       ])
     );
   }),
-  rest.get('http://localhost:3030/toppings', (req, res, ctx) => {
+  rest.get(TOPPINGS_API, (req, res, ctx) => {
     return res(
       ctx.json([
         {
@@ -33,7 +34,7 @@ export const handlers = [
       ])
     );
   }),
-  rest.post('http://localhost:3030/order', (req, res, ctx) => {
+  rest.post(ORDER_API, (req, res, ctx) => {
     return res(
       ctx.json({
         orderNumber: 123456789,

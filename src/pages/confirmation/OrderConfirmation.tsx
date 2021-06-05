@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useOrderDetails } from '../../contexts/OrderDetails';
 import { Button } from 'react-bootstrap';
 import { OrderPhases } from '../../constants';
+import { ORDER_API } from '../../constants/routes';
 
 interface OrderConfirmationProps {
   setOrderPhase: React.Dispatch<React.SetStateAction<OrderPhases>>;
@@ -16,7 +17,7 @@ const OrderConfirmation: React.FC<OrderConfirmationProps> = ({
 
   useEffect(() => {
     axios
-      .post(`http://localhost:3030/order`)
+      .post(ORDER_API)
       .then((response) => {
         setOrderNumber(response.data.orderNumber);
       })

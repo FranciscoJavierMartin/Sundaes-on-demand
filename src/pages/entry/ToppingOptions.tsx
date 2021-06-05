@@ -16,7 +16,7 @@ const ToppingOptions: React.FC<ToppingOptionsProps> = ({
     <Col xs={12} sm={6} md={4} lg={3} style={{ textAlign: 'center' }}>
       <img
         style={{ width: '75%' }}
-        src={`http://localhost:3030/${imagePath}`}
+        src={`${process.env.REACT_APP_SERVER_URL}${imagePath}`}
         alt={`${name} topping`}
       />
       <Form.Group controlId={`${name}-topping-checkbox`}>
