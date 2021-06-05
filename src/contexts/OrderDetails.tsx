@@ -12,7 +12,7 @@ import { formatCurrency } from '../utils';
 
 const OrderDetails =
   // @ts-ignore
-  createContext<[ContextState, UpdateItemCountFunctionType]>();
+  createContext<[ContextState, UpdateItemCountFunctionType, () => void]>();
 
 export function useOrderDetails() {
   const context = useContext(OrderDetails);
@@ -69,7 +69,9 @@ export const OrderDetailsProvider: React.FC = (props) => {
     });
   }, [optionCounts]);
 
-  const value = useMemo<[ContextState, UpdateItemCountFunctionType]>(() => {
+  const value = useMemo<
+    [ContextState, UpdateItemCountFunctionType, () => void]
+  >(() => {
     function updateItemCount(
       itemName: OptionTypes,
       newItemCount: number,
@@ -86,12 +88,20 @@ export const OrderDetailsProvider: React.FC = (props) => {
       setOptionCounts(newOptionCounts);
     }
 
+    function resetOrder() {
+      setOptionCounts({
+        scoops: new Map(),
+        toppings: new Map(),
+      });
+    }
+
     return [
       {
         ...optionCounts,
         totals,
       },
       updateItemCount,
+      resetOrder,
     ];
   }, [optionCounts, totals]);
 
