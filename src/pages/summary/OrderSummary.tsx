@@ -1,9 +1,10 @@
 import React from 'react';
+import { OrderPhases } from '../../constants';
 import { useOrderDetails } from '../../contexts/OrderDetails';
 import SummaryForm from './SummaryForm';
 
 interface OrderSummaryProps {
-  setOrderPhase: any;
+  setOrderPhase: React.Dispatch<React.SetStateAction<OrderPhases>>;
 }
 
 const OrderSummary: React.FC<OrderSummaryProps> = ({ setOrderPhase }) => {

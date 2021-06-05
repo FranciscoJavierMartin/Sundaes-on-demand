@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { Button, Form, OverlayTrigger, Popover } from 'react-bootstrap';
+import { OrderPhases } from '../../constants';
 
 interface SummaryFormProps {
-  setOrderPhase: any;
+  setOrderPhase: React.Dispatch<React.SetStateAction<OrderPhases>>;
 }
 
 const SummaryForm: React.FC<SummaryFormProps> = ({ setOrderPhase }) => {
@@ -10,7 +11,7 @@ const SummaryForm: React.FC<SummaryFormProps> = ({ setOrderPhase }) => {
 
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    setOrderPhase('completed');
+    setOrderPhase(OrderPhases.completed);
   }
 
   const popover = (

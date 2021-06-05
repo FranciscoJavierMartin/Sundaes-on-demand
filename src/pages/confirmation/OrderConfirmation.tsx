@@ -2,9 +2,10 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useOrderDetails } from '../../contexts/OrderDetails';
 import { Button } from 'react-bootstrap';
+import { OrderPhases } from '../../constants';
 
 interface OrderConfirmationProps {
-  setOrderPhase: any;
+  setOrderPhase: React.Dispatch<React.SetStateAction<OrderPhases>>;
 }
 
 const OrderConfirmation: React.FC<OrderConfirmationProps> = ({
@@ -24,7 +25,7 @@ const OrderConfirmation: React.FC<OrderConfirmationProps> = ({
 
   const handleClick = () => {
     resetOrder();
-    setOrderPhase('inProgress');
+    setOrderPhase(OrderPhases.inProgress);
   };
 
   return orderNumber ? (
