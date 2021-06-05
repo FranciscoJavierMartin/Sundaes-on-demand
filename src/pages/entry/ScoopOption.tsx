@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Col, Form, Row } from 'react-bootstrap';
 
 interface ScoopOptionProps {
@@ -12,8 +12,15 @@ const ScoopOption: React.FC<ScoopOptionProps> = ({
   imagePath,
   updateItemCount,
 }) => {
+  const [isValid, setIsValid] = useState<boolean>(true);
   const handleChange = (event: React.ChangeEvent<any>) => {
     updateItemCount(name, event.target.value);
+    const currentValueFloat = parseFloat(event.target.value);
+    setIsValid(
+      0 <= currentValueFloat &&
+        currentValueFloat <= 10 &&
+        Math.floor(currentValueFloat) === currentValueFloat
+    );
   };
   return (
     <Col xs={12} sm={6} md={4} lg={3} style={{ textAlign: 'center' }}>
@@ -35,6 +42,7 @@ const ScoopOption: React.FC<ScoopOptionProps> = ({
             type='number'
             defaultValue={0}
             onChange={handleChange}
+            isInvalid={!isValid}
           />
         </Col>
       </Form.Group>
